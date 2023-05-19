@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<br>
+<h1>BLOG CATEGORIES</h1>
+<ul>
+        {% for item in category_lists %}
+        <h4><a class="dropdown-item" href="{% url 'category' item|slugify %}">{{ item }}</a></h4>
+        {% endfor %}
+</ul>
+
+{% endblock %}

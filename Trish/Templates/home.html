@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<br>
+<h1>POST</h1>
+<ul>
+        {% for post in object_list %}
+          <li><a href = "{% url 'article_view' post.pk %}">{{ post.title }}</a> - {{ post.author.first_name }} {{ post.author.last_name}}, <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a>, {{ post.post_date }} <br>
+          {{ post.snippet }} </li>
+        {% endfor %}
+</ul>
+
+{% endblock %}

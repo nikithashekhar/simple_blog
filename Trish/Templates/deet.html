@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %} {{ post.title_tag }} {% endblock %}
+
+{% block content%}
+<h1> {{ post.title }} </h1>
+<small>By: {{ post.author.first_name }} {{ post.author.last_name }} - {{ post.post_date }}</small> <br>
+<small>Category: {{ post.category }}</small>
+<hr>
+<br>
+{{ post.body | safe }}
+
+<br><br><br>
+
+<a href="{% url 'home' %}" class="btn btn-secondary">BACK</a>
+{% if user.is_authenticated %} 
+{% if user.id == post.author.id %}
+<small><a href="{% url 'edit_post' post.pk %}" class="btn btn-secondary">EDIT</a></small>
+<small><a href="{% url 'delete_post' post.pk %}" class="btn btn-secondary">DELETE</a></small>
+{% endif %}
+{% endif %}
+
+<br><br>
+<hr>
+<br>
+
+<form action="{% url 'like_post' post.pk%}" method="POST">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    {% if liked %}
+    <button type="submit" name="post.id" value="{{ post.id }}" class="btn btn-danger btn-sm">UNLIKE</button>
+    {% else %}
+    <button type="submit" name="post.id" value="{{ post.id }}" class="btn btn-primary btn-sm">LIKE</button> 
+    {% endif %}
+    {{ total_likes }} Likes
+    {% else %}
+    <samll><a href="{% url 'login' %}">LOGIN</a> to like</samll>
+    {% endif %}
+</form>
+
+{% endblock %}
