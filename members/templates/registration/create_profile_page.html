@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block title %} Create a new post {% endblock %}
+{% block title %} Create your new profile {% endblock %}
 
 {% block content %}
 <br>
-<h1>Add Post...</h1>
+<h1>Create Profile...</h1>
 
 {% if user.is_authenticated %}
 <table>
@@ -11,16 +11,10 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            {{ form.media }}
-            <button class="btn btn-secondary">POST</button>
+            <button class="btn btn-secondary">CREATE</button>
         </form>
     </div>
 </table>
-
-<script>
-    var name = "{{ user.id }}";
-    document.getElementById("author-name").value = name;
-</script>
 {% endif %}
 
 {% endblock %}

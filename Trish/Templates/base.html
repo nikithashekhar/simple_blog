@@ -51,12 +51,6 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'addCat' %}">ADD CATEGORY</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'edit_profile' %}">EDIT PROFILE</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
-            </li>
             {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
@@ -81,6 +75,25 @@
               <a class="nav-link disabled">Disabled</a>
             </li> -->
           </ul>
+          {% if user.is_authenticated %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.first_name }} {{ user.last_name }}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Settings</a></li>
+                {% if user.profile.id %}
+                <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Show Profile</a></li>
+                {% else %}
+                <li><a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile</a></li>
+                {% endif %}
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+          {% endif %}
           <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
